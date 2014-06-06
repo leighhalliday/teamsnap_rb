@@ -9,6 +9,7 @@ module TeamsnapRb
       self.connection = Faraday::Connection.new(:url => url) do |faraday|
         faraday.request :teamsnap_auth_middleware, auth
         faraday.adapter Faraday.default_adapter
+        faraday.response :logger
       end
     end
 
