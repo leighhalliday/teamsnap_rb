@@ -33,27 +33,10 @@ Or install it yourself as:
     config.response_middleware << :logger
     client = TeamsnapRb::Client.new(ENV['TEAMSNAP_URL'], config: config)
 
-    # current user token based
+    # user token based
     config = TeamsnapRb::Config.new(access_token: "your_token")
     config.response_middleware << :logger
     client = TeamsnapRb::Client.new(ENV['TEAMSNAP_URL'], config: config)
-
-    # proposed app based
-    client = TeamsnapRb.configure do |config|
-      config.client_id = "your_client_id"
-      config.client_secret = "your_client_secret"
-      # override url for local/stage testing
-      #config.teamsnap_url = ENV["TEAMSNAP_URL"]
-      #set logging config
-    end
-
-    # proposed user based
-    client = TeamsnapRb.configure do |config|
-      config.access_token = "your_token"
-      # override url for local/stage testing
-      #config.teamsnap_url = ENV["TEAMSNAP_URL"]
-      #set logging config
-    end
 
 ### Retrieving
 
@@ -112,11 +95,16 @@ Or install it yourself as:
     Not supported
 
     # create a team
+    create_team_response = client.teams.template.push(
+      name: "my new team",
+      sport_id: 1,
+      location_country: "US",
+      time_zone: "Eastern Time (US & Canada)"
+    )
 
     # create a member
-    member = TeamsnapRB::Item.with
     create_member_response = client.members.template.push(
-        team_id: 777788,
+        team_id: TEAM_ID,
         first_name: "first_name",
         last_name: "last_name",
         gender: "gender",
